@@ -18,7 +18,7 @@ type/topic
 
 | Part    | Rules                                                                 |
 | ------- | --------------------------------------------------------------------- |
-| `type`  | Single lowercase word: `feat`, `fix`, `test`, `docs`, `refactor`, `chore`, `build` |
+| `type`  | Single lowercase word: `feat`, `fix`, `test`, `docs`, `refactor`, `chore`, `build`, `tutorial`, `config` |
 | `topic` | Kebab-case summary, fewest words that remain clear (e.g. `hero-section`, `nav-links`, `login-redirect`) |
 
 **Examples**: `feat/hero-section`, `fix/nav-overflow`, `docs/readme-commands`

@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^cd /home/dmourelle/Projetos/tutorial && git add AGENTS\\.md \\.github/ && git commit -m \"build\\(copilot\\): add agent configuration files\" -m \"Add AGENTS\\.md with project conventions and commands\\.\nAdd conventional-commit skill to standardize commit messages\\.\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}
