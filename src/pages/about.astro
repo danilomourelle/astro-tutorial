@@ -1,4 +1,6 @@
 ---
+import type { map } from "astro:schema";
+
 const pageTitle = "About Me";
 
 const identity = {
@@ -8,7 +10,7 @@ const identity = {
 	hobbies: ["coding", "reading", "studying", "traveling"],
 };
 
-const skill = ["HTML", "CSS", "JavaScript", "TypeScript", "Node", "Astro"];
+const skills = ["HTML", "CSS", "JavaScript", "TypeScript", "Node", "Astro"];
 
 const happy = true;
 const finished = false;
@@ -23,6 +25,16 @@ const goal = 3;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
+		<style>
+			h1 {
+				color: purple;
+				font-size: 4rem;
+			}
+			.skill {
+				color: green;
+				font-weight: bold;
+			}
+		</style>
 	</head>
 	<body>
 		<a href="/">Home</a>
@@ -65,6 +77,10 @@ const goal = 3;
 					<p>My goal is not 3 days.</p>
 				)
 			}
+			<p>My skills are:</p>
+			<ul>
+				{skills.map((skill) => <li class="skill">{skill}</li>)}
+			</ul>
 		</ul>
 	</body>
 </html>
