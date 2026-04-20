@@ -1,8 +1,8 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
-import '../styles/global.css';
+import "../styles/global.css";
 
 const pageTitle = "Home Page";
 ---
@@ -21,12 +21,7 @@ const pageTitle = "Home Page";
 		<h1>{pageTitle}</h1>
 		<Footer />
 		<script>
-			const menu = document.querySelector('.menu');	
-
-			menu?.addEventListener("click", () => {
-				const isExpanded = menu.getAttribute("aria-expanded") === "true";
-				menu.setAttribute("aria-expanded", `${!isExpanded}`);
-			});
+			import "../scripts/menu.js";
 		</script>
 	</body>
 </html>
