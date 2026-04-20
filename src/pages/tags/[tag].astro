@@ -1,4 +1,5 @@
 ---
+import BlogPost from "../../components/BlogPost.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 /**
@@ -6,22 +7,39 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
  * Each object in the returned array represents a path that will be generated at build time.
  * The `params` object contains the dynamic segment of the URL, which in this case is the `tag` parameter.
  * The `params` property should match the dynamic segment defined in the file name (e.g., [tag].astro).
- * 
- * Any value not set will result in a 404 page, so make sure to include all values needed.  
+ *
+ * Any value not set will result in a 404 page, so make sure to include all values needed.
  */
 export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true }),
+  );
+
   return [
-    { params: { tag: "astro" } },
-    { params: { tag: "successes" } },
-    { params: { tag: "community" } },
-    { params: { tag: "blogging" } },
-    { params: { tag: "setbacks" } },
-    { params: { tag: "learning in public" } },
+    { params: { tag: "astro" }, props: { posts: allPosts } },
+    { params: { tag: "successes" }, props: { posts: allPosts } },
+    { params: { tag: "community" }, props: { posts: allPosts } },
+    { params: { tag: "blogging" }, props: { posts: allPosts } },
+    { params: { tag: "setbacks" }, props: { posts: allPosts } },
+    { params: { tag: "learning in public" }, props: { posts: allPosts } },
   ];
 }
 
 const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+const filteredPosts = posts.filter((post: any) =>
+  post.frontmatter.tags?.includes(tag),
+);
 ---
+
 <BaseLayout pageTitle={tag}>
   <p>Posts tagged with "{tag}"</p>
+  <ul>
+    {
+      filteredPosts.map((post: any) => (
+        <BlogPost url={post.url} title={post.frontmatter.title} />
+      ))
+    }
+  </ul>
 </BaseLayout>
