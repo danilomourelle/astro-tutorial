@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BlogPost from "../../components/BlogPost.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -11,19 +12,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
  * Any value not set will result in a 404 page, so make sure to include all values needed.
  */
 export async function getStaticPaths() {
-  const allPosts = Object.values(
-    import.meta.glob("../posts/*.md", { eager: true }),
-  );
+  const allPosts = await getCollection("blog");
 
   const uniqueTags = new Set(
-    allPosts.flatMap((post: any) => post.frontmatter.tags || []),
+    allPosts.flatMap((post: any) => post.data.tags || []),
   );
 
   return Array.from(uniqueTags).map((tag) => ({
     params: { tag },
     props: {
       posts: allPosts.filter((post: any) =>
-        post.frontmatter.tags?.includes(tag),
+        post.data.tags?.includes(tag),
       ),
     },
   }));
@@ -37,7 +36,7 @@ const { posts } = Astro.props;
   <p>Posts tagged with "{tag}"</p>
   <ul>
     {posts.map((post: any) => (
-      <BlogPost url={post.url} title={post.frontmatter.title} />
+      <BlogPost url={`/posts/${post.id}`} title={post.data.title} />
     ))}
   </ul>
 </BaseLayout>
